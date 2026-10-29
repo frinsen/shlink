@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * [#2671](https://github.com/shlinkio/shlink/issues/2671) Add support for Mercure 1.0.
+* [#2646](https://github.com/shlinkio/shlink/issues/2646) Add `CLOUDFLARE_GEOLOCATION_ENABLED` env var. When enabled, visits are geolocated from the location headers set by Cloudflare (`CF-IPCountry`, and `CF-Region`, `CF-IPCity`, `CF-IPLatitude`, `CF-IPLongitude` and `CF-Timezone` if the *Add visitor location headers* managed transform is on), falling back to GeoLite2 when they are not present.
+
+    This allows geolocating visits without a GeoLite2 license key when Shlink is served behind Cloudflare. It must only be enabled if Shlink cannot be reached without going through Cloudflare, as the headers could otherwise be spoofed.
 
 ### Changed
 * *Nothing*

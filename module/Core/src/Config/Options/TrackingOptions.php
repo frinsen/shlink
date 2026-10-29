@@ -33,6 +33,9 @@ final readonly class TrackingOptions
         public bool $disableUaTracking = false,
         // A list of IP addresses, patterns or CIDR blocks from which tracking is disabled by default
         public array $disableTrackingFrom = [],
+        // If true, visits are geolocated from the CF-IPCountry and related headers set by Cloudflare, falling back to
+        // GeoLite2 when they are missing. Enable only if Shlink cannot be reached without going through Cloudflare
+        public bool $cloudflareGeolocationEnabled = false,
     ) {}
 
     public static function fromEnv(): self
@@ -46,6 +49,7 @@ final readonly class TrackingOptions
             disableReferrerTracking: (bool) EnvVars::DISABLE_REFERRER_TRACKING->loadFromEnv(),
             disableUaTracking: (bool) EnvVars::DISABLE_UA_TRACKING->loadFromEnv(),
             disableTrackingFrom: splitByComma(EnvVars::DISABLE_TRACKING_FROM->loadFromEnv()),
+            cloudflareGeolocationEnabled: (bool) EnvVars::CLOUDFLARE_GEOLOCATION_ENABLED->loadFromEnv(),
         );
     }
 
